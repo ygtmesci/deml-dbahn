@@ -16,3 +16,7 @@ venv/
 # Data and secrets
 data/
 .env
+
+# Local planning files
+DB Delay Project Plan.pdf
+project_description.txt

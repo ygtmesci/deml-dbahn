@@ -1,5 +1,69 @@
 # deml-dbahn
 
-DEML 2026 group project (TU Berlin): an end-to-end ML pipeline that predicts Deutsche Bahn train delays from raw data, aiming to beat the course baseline.
+Group project for DEML 2026 at TU Berlin (WildMLBench track).
 
-See `DB Delay Project Plan.pdf` for the timeline.
+**Goal:** build an end-to-end ML pipeline that predicts Deutsche Bahn train delays from raw data, with our own ETL and feature engineering, and beat the baseline provided by the course.
+
+## Deadlines
+
+| Date | What |
+|---|---|
+| 18 Nov 2026 | Group formation and project selection |
+| 25 Nov 2026 | Pitch presentation (5 min talk + 10 min questions) |
+| 20 Jan 2027 | Final presentation (10 min talk + 12 min questions) |
+| 3 Feb 2027 | Code and documentation |
+
+Internal checkpoints: ETL done and first model at least matching the baseline by **18 Dec**, feature freeze on **13 Jan**.
+
+## Timeline
+
+```mermaid
+gantt
+    dateFormat YYYY-MM-DD
+    axisFormat %d %b
+
+    section Kickoff and pitch
+    Form group, register, email topic          :2026-11-16, 3d
+    Get task links, raw data and baseline      :2026-11-18, 7d
+    Prepare the 3-slide pitch                  :2026-11-18, 8d
+    Pitch                                      :crit, milestone, 2026-11-25, 0d
+
+    section Data and ETL
+    Explore raw data                           :2026-11-23, 12d
+    Reproduce baseline, fix metric and split   :2026-11-26, 9d
+    ETL pipeline                               :2026-11-30, 19d
+    Data validation and leakage checks         :2026-12-09, 10d
+    ETL done, model at baseline                :milestone, 2026-12-18, 0d
+
+    section Features and modelling
+    Winter break (light load)                  :done, 2026-12-21, 14d
+    Feature engineering                        :2026-12-07, 37d
+    Train models against the baseline          :2026-12-14, 30d
+    Tuning and ensembling                      :2027-01-04, 12d
+    Error analysis and ablations               :2027-01-06, 14d
+    Feature freeze                             :milestone, 2027-01-13, 0d
+
+    section Wrap-up
+    Final presentation prep                    :2027-01-11, 10d
+    Final presentation                         :crit, milestone, 2027-01-20, 0d
+    Act on feedback                            :2027-01-21, 7d
+    Code cleanup, reproducible run             :2027-01-18, 17d
+    Documentation                              :2027-01-21, 14d
+    Code and docs due                          :crit, milestone, 2027-02-03, 0d
+```
+
+## Weekly plan
+
+| Week | Dates | Focus |
+|---|---|---|
+| 1 | 16–22 Nov | Form the group, get data access and the baseline, start the pitch |
+| 2 | 23–29 Nov | Pitch; first pass over the raw data; reproduce the baseline |
+| 3 | 30 Nov–6 Dec | Finish data exploration; fix metric and time-based split; start ETL |
+| 4 | 7–13 Dec | Core ETL: parse, clean, normalize stations and timestamps, join; first features |
+| 5 | 14–20 Dec | Validation and leakage checks; first model vs. baseline |
+| 6–7 | 21 Dec–3 Jan | Winter break, light load: feature experiments and training runs |
+| 8 | 4–10 Jan | Finish features; tuning and ensembling; start error analysis |
+| 9 | 11–17 Jan | Feature freeze; ablations; prepare final presentation |
+| 10 | 18–24 Jan | Final presentation; start cleanup and docs |
+| 11 | 25–31 Jan | Act on feedback; reproducible pipeline; write docs |
+| 12 | 1–7 Feb | Final run from a clean checkout; submit code and docs |
