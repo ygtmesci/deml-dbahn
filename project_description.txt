@@ -1,0 +1,2 @@
+Project 1: Baselines for Real-World ML Pipelines
+Build competitive end-to-end ML pipelines for a messy real-world dataset. Either predict which third-party trackers appear on a given website, or predict Deutsche Bahn train delays. Each requires custom ETL and feature engineering. Your solution should beat a given by us baseline.
