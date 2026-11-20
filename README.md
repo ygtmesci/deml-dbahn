@@ -6,19 +6,7 @@ Group project for DEML 2026 at TU Berlin (WildMLBench track).
 
 ## Getting started
 
-Requires Python 3.12+.
-
-1. Download the course data (link in our team chat) into `data/`, so it contains `training.tar`, `val.tar`, `weather.tar`, `stations.json`, `timetables_schema.json` and `val_questions.csv`. Put the course's `scoring/` folder in the repo root.
-2. Build the shared development subset (about 500 MB, 30 seconds):
-   ```
-   python scripts/make_subset.py
-   ```
-   This gives everyone the same files in `data/subset/`:
-   - one training day (29 Oct) and one val day (4 Nov, cut-offs 08:00 and 18:00, 1,807 questions)
-   - `training/` and `val/`, each with `plan/` (hourly) and `fchg/` (every 10 min) snapshots, kept as `.tar.gz` with one XML per station (EVA number) inside
-   - all weather data in `weather/`, plus `stations.json`, `timetables_schema.json` and the matching `val_questions.csv`
-
-   To look at one station's XML: `tar -xzf data/subset/training/plan/20261029_080001.tar.gz -O 20261029_080001/8000105.xml`
+Download the course data (link in our team chat) into `data/`, so it contains `training.tar`, `val.tar`, `weather.tar`, `stations.json`, `timetables_schema.json` and `val_questions.csv`. Put the course's `scoring/` folder in the repo root.
 
 `data/` and `scoring/` are git-ignored. Never commit course data or the val answers: this repo is public.
 
