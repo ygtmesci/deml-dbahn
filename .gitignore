@@ -20,3 +20,7 @@ data/
 # Local planning files
 DB Delay Project Plan.pdf
 project_description.txt
+
+# Course material (repo is public)
+scoring/
+Task.pdf
