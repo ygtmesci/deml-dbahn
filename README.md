@@ -17,6 +17,10 @@ All column names and types are fixed in [`src/schema.py`](src/schema.py). Write 
 
 Predictions are a CSV with the columns `question_id` and `prediction` (arrival delay in minutes, early is negative), one row per question.
 
+### Reporting your work
+
+Each task has one file in [`docs/`](docs/) with four headings: what was done, decisions and why, results, open issues. Keep your task's file up to date as you go, in your own words: the course does not accept AI-generated documentation. Exploration notebooks go in `notebooks/` and are linked from the docs file.
+
 ## Deadlines
 
 | Date | What |
