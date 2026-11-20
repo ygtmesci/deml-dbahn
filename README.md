@@ -6,9 +6,16 @@ Group project for DEML 2026 at TU Berlin (WildMLBench track).
 
 ## Getting started
 
-Download the course data (link in our team chat) into `data/`, so it contains `training.tar`, `val.tar`, `weather.tar`, `stations.json`, `timetables_schema.json` and `val_questions.csv`. Put the course's `scoring/` folder in the repo root.
+1. Clone the repo.
+2. Download the course data (link in our team chat) into `data/`, so it contains `training.tar`, `val.tar`, `weather.tar`, `stations.json`, `timetables_schema.json` and `val_questions.csv`. Put the course's `scoring/` folder in the repo root.
 
 `data/` and `scoring/` are git-ignored. Never commit course data or the val answers: this repo is public.
+
+### Table formats
+
+All column names and types are fixed in [`src/schema.py`](src/schema.py). Write every table with `table_path(split, table)`, which gives `data/processed/<split>/<table>.parquet`. To change a column, open a pull request to `src/schema.py` so everyone sees it.
+
+Predictions are a CSV with the columns `question_id` and `prediction` (arrival delay in minutes, early is negative), one row per question.
 
 ## Deadlines
 
