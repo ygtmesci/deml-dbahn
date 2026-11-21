@@ -30,7 +30,7 @@ Each task has one file in [`docs/`](docs/) with four headings: what was done, de
 | 20 Jan 2027 | Final presentation (10 min talk + 12 min questions) |
 | 3 Feb 2027 | Code and documentation |
 
-Internal checkpoints: ETL done and first model at least matching the baseline by **18 Dec**, feature freeze on **13 Jan**.
+Internal checkpoints: ETL done and first model at least matching the baseline by **18 Dec**, feature freeze on **4 Jan**, tuning and error analysis done by **10 Jan**. 11–19 Jan is buffer and presentation prep.
 
 ## Timeline
 
@@ -54,11 +54,12 @@ gantt
 
     section Features and modelling
     Winter break (light load)                  :done, 2026-12-21, 14d
-    Feature engineering                        :2026-12-07, 37d
-    Train models against the baseline          :2026-12-14, 30d
-    Tuning and ensembling                      :2027-01-04, 12d
-    Error analysis and ablations               :2027-01-06, 14d
-    Feature freeze                             :milestone, 2027-01-13, 0d
+    Feature engineering                        :2026-12-07, 28d
+    Train models against the baseline          :2026-12-14, 21d
+    Feature freeze                             :milestone, 2027-01-04, 0d
+    Tuning and ensembling                      :2026-12-28, 13d
+    Error analysis and ablations               :2026-12-30, 12d
+    Core work done                             :milestone, 2027-01-10, 0d
 
     section Wrap-up
     Final presentation prep                    :2027-01-11, 10d
@@ -78,9 +79,9 @@ gantt
 | 3 | 30 Nov–6 Dec | Finish data exploration; fix metric and time-based split; start ETL |
 | 4 | 7–13 Dec | Core ETL: parse, clean, normalize stations and timestamps, join; first features |
 | 5 | 14–20 Dec | Validation and leakage checks; first model vs. baseline |
-| 6–7 | 21 Dec–3 Jan | Winter break, light load: feature experiments and training runs |
-| 8 | 4–10 Jan | Finish features; tuning and ensembling; start error analysis |
-| 9 | 11–17 Jan | Feature freeze; ablations; prepare final presentation |
+| 6–7 | 21 Dec–3 Jan | Winter break, light load: finish features and training runs; start tuning and error analysis |
+| 8 | 4–10 Jan | Feature freeze; finish tuning, ensembling, error analysis and ablations |
+| 9 | 11–17 Jan | Buffer; prepare final presentation |
 | 10 | 18–24 Jan | Final presentation; start cleanup and docs |
 | 11 | 25–31 Jan | Act on feedback; reproducible pipeline; write docs |
 | 12 | 1–7 Feb | Final run from a clean checkout; submit code and docs |
