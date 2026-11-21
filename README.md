@@ -38,6 +38,7 @@ Internal checkpoints: ETL done and first model at least matching the baseline by
 gantt
     dateFormat YYYY-MM-DD
     axisFormat %d %b
+    todayMarker off
 
     section Kickoff and pitch
     Form group, register, email topic          :2026-11-16, 3d
