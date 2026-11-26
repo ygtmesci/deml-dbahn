@@ -6,14 +6,38 @@ Group project for DEML 2026 at TU Berlin (WildMLBench track).
 
 ## Getting started
 
-1. Clone the repo.
-2. Download the course data (link in our team chat) into `data/`, so it contains `training.tar`, `val.tar`, `weather.tar`, `stations.json`, `timetables_schema.json` and `val_questions.csv`. Put the course's `scoring/` folder in the repo root.
+1. Clone the repo and install the requirements: `python3 -m venv .venv && .venv/bin/pip install -r requirements.txt`.
+2. Put the `DATABASE_URL` line from our team chat into a file `.env` in the repo root.
+3. Put the course's `scoring/` folder in the repo root.
 
-`data/` and `scoring/` are git-ignored. Never commit course data or the val answers: this repo is public.
+All data is in the team database, so you do not need the raw course data. To read it:
 
-### Table formats
+```python
+from src.db import query
+df = query("select * from val.questions limit 5")
+```
 
-All column names and types are fixed in [`src/schema.py`](src/schema.py). Write every table with `table_path(split, table)`, which gives `data/processed/<split>/<table>.parquet`. To change a column, open a pull request to `src/schema.py` so everyone sees it.
+The database is DuckDB behind a Postgres endpoint, so write DuckDB SQL. Filter and aggregate in SQL and only fetch what you need: downloads are slow.
+
+`.env` and `scoring/` are git-ignored. Never commit the database URL, course data or the val answers: this repo is public.
+
+### Tables
+
+All column names and types are fixed in [`src/schema.py`](src/schema.py). To change a column, open a pull request to `src/schema.py` so everyone sees it.
+
+| Table | Content |
+|---|---|
+| `training.planned_stops`, `val.planned_stops` | planned stops from `plan/` |
+| `training.changes`, `val.changes` | changed times, cancellations and platforms from `fchg/` |
+| `training.messages`, `val.messages` | messages from `fchg/` |
+| `val.questions` | the val questions with their labels |
+| `main.stations` | stations with coordinates, from `stations.json` |
+| `main.weather` | DWD 10-minute temperature, precipitation and wind, in local time |
+| `main.station_weather` | nearest weather station for each station |
+
+`planned_stops`, `changes` and `messages` only hold a row when something is new or changed since the previous snapshot. To get the state at time `now`, take the latest row per stop with `snapshot_time <= now`.
+
+[`src/build_db.py`](src/build_db.py) builds the database from the raw course data. Run it again only when new data arrives, such as the test split.
 
 Predictions are a CSV with the columns `question_id` and `prediction` (arrival delay in minutes, early is negative), one row per question.
 

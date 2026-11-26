@@ -24,3 +24,6 @@ project_description.txt
 # Course material (repo is public)
 scoring/
 Task.pdf
+
+# Database credentials
+*credentials*.env

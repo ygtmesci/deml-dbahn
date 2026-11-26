@@ -1,22 +1,20 @@
-"""Shared table formats. Every table is written to data/processed/<split>/<table>.parquet.
+"""Shared table formats. All tables live in the team database (see src/db.py):
+<split>.planned_stops, <split>.changes, <split>.messages and <split>.questions for each split,
+and main.stations, main.weather, main.station_weather shared by all splits.
 
 Conventions:
 - times are datetimes in German local time, like the raw data (weather is converted from UTC on load)
 - ids are strings (trip ids can be negative 19-digit numbers)
 - s_id = "<daily trip id>-<YYMMDDHHmm trip start>-<stop index>"; the schema file says 6 digits
   for the date part, but the data has 10
+- planned_stops, changes and messages hold a row only when the stop (or message) was not in the
+  previous snapshot with the same values. snapshot_time is when that version was first seen, so the
+  state at time `now` is the latest row with snapshot_time <= now.
 """
-from pathlib import Path
-
-PROCESSED = Path(__file__).resolve().parent.parent / "data" / "processed"
 SPLITS = ("training", "val", "test")
 
 
-def table_path(split, table):
-    return PROCESSED / split / f"{table}.parquet"
-
-
-# From plan/: one row per stop per plan snapshot
+# From plan/: one row per new or changed stop per plan snapshot
 PLANNED_STOPS = {
     "snapshot_time": "datetime64[ns]",  # from the file name
     "s_id": "string",                   # <s id>
@@ -35,7 +33,7 @@ PLANNED_STOPS = {
     "path_after": "string",             # dp ppth, stations after this one
 }
 
-# From fchg/: one row per stop per change snapshot.
+# From fchg/: one row per new or changed stop per change snapshot.
 # fchg sometimes also carries pt/ppth; those belong in PLANNED_STOPS-style columns, not here.
 CHANGES = {
     "snapshot_time": "datetime64[ns]",
@@ -50,7 +48,8 @@ CHANGES = {
     "changed_platform": "string",       # cp
 }
 
-# From fchg/: one row per message per snapshot (messages repeat across snapshots; dedupe on msg_id)
+# From fchg/: one row per new message per snapshot. The same msg_id can still appear on several
+# stops and on both ar and dp.
 MESSAGES = {
     "snapshot_time": "datetime64[ns]",
     "s_id": "string",                   # empty for station-wide messages
@@ -65,6 +64,17 @@ MESSAGES = {
     "valid_to": "datetime64[ns]",       # m to
 }
 
+# From stations.json: one row per EVA number (a few stations have several)
+STATIONS = {
+    "eva": "string",
+    "name": "string",
+    "lat": "float64",
+    "lon": "float64",
+    "category": "Int64",                # DB station category, 1 (largest) to 7
+    "federal_state": "string",
+    "is_main": "boolean",               # main EVA number of the station
+}
+
 # DWD 10-minute observations: one row per weather station and slot
 WEATHER = {
     "dwd_id": "string",
@@ -74,7 +84,7 @@ WEATHER = {
     "wind_ms": "float64",
 }
 
-# Nearest weather station per DB station
+# Nearest weather station per DB station, among those reporting temperature, precipitation and wind
 STATION_WEATHER = {
     "eva": "string",
     "dwd_id": "string",
